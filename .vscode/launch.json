@@ -1,0 +1,52 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ElectricalGripHardware.vxe_vxworks_intel",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/workspaces/ElectricalGripHardware/build/Release/ElectricalGripHardware.vxe",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "useExtendedRemote": true,
+            "args": [],
+            "environment": [
+                {
+                    "name": "connection",
+                    "value": "vxworks_intel"
+                }
+            ],
+            "MIMode": "gdb",
+            "miDebuggerPath": "/root/.local/share/DevStudio/debug/vxworks-sdk_GDB.sh",
+            "miDebuggerServerAddress": "${command:DevStudio.command.project.getMiDebuggerAddress}",
+            "setupCommands": [
+                {
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "text": "set remotetimeout 120",
+                    "ignoreFailures": true
+                }
+            ],
+            "postRemoteConnectCommands": [
+                {
+                    "text": "remote put '/workspaces/ElectricalGripHardware/build/Release/ElectricalGripHardware.vxe' /ram0/ElectricalGripHardware.vxe"
+                },
+                {
+                    "text": "set args priority=100 stacksize=16384"
+                },
+                {
+                    "text": "set remote exec-file /ram0/ElectricalGripHardware.vxe"
+                }
+            ],
+            "launchCompleteCommand": "exec-run",
+            "logging": {
+                "trace": true,
+                "engineLogging": true
+            },
+            "preLaunchTask": "${command:DevStudio.command.project.buildBeforeLaunch}"
+        }
+    ]
+}

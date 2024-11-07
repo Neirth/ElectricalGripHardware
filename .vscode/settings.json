@@ -1,0 +1,13 @@
+{
+    "cmake.cmakePath": "${workspaceFolder}/.vscode/run_cmake.cmd",
+    "cmake.configureArgs": [
+        "-DSIP_DIR:STRING=undefined",
+        "-DCUSTOM_MODULES_DIR:STRING=undefined"
+    ],
+    "files.associations": {
+        "predict_load_service.h": "c",
+        "math.h": "c",
+        "main_utils.h": "c",
+        "grid_predictor.h": "c"
+    }
+}

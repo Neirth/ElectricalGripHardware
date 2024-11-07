@@ -1,0 +1,22 @@
+{
+    "name": "VxWorks SDK DevContainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-vscode.cpptools",       // Extensión para C/C++
+        "ms-vscode.cmake-tools",      // Extensión para CMake
+        "windriver.windsdksupport"
+    ],
+    "mounts": [
+        "source=${localEnv:HOME}/.local/sdks/wrsdk-vxworks7-qemu/,target=/opt/vxworks-sdk,type=bind"
+    ],
+    "remoteEnv": {
+        "VXWORKS_SDK_PATH": "/opt/vxworks-sdk"
+    },
+    "postCreateCommand": "bash -c 'source /opt/vxworks-sdk/sdkenv.sh'"
+}
