@@ -4,7 +4,7 @@
 #include "predict_load_service.h"
 #include "../models/models.h"
 #include "../utils/main_utils.h"
-#include "../onnx/grid_predictor.h"  // Header generado por onnx2c
+#include "../onnx/grid_predictor.h" 
 
 PredictLoadService* predict_load_service_new(void) {
     PredictLoadService *service = malloc(sizeof(PredictLoadService));
@@ -12,7 +12,7 @@ PredictLoadService* predict_load_service_new(void) {
         fprintf(stderr, "[!] Error allocating memory for PredictLoadService\n");
         return NULL;
     }
-    // Inicializar cualquier estructura necesaria si aplica
+
     return service;
 }
 
@@ -28,7 +28,6 @@ float predict_load(PredictLoadService *service, DataPoint *input_data, size_t si
         return -1.0f;
     }
 
-    // Preparar el tensor de entrada con dimensiones [1][19][3]
     float input_tensor[1][19][3] = {0};
 
     for (size_t i = 0; i < size; i++) {
@@ -39,12 +38,9 @@ float predict_load(PredictLoadService *service, DataPoint *input_data, size_t si
         input_tensor[0][i][2] = (float) input_data[i].quantity;
     }
 
-    // Preparar el tensor de salida
     float output_tensor[1][1] = {0};
 
-    // Invocar la función 'entry' del modelo generado por onnx2c
     entry(input_tensor, output_tensor);
 
-    // Retornar el resultado de la predicción
     return output_tensor[0][0];
 }

@@ -8,8 +8,8 @@
         "terminal.integrated.shell.linux": "/bin/bash"
     },
     "extensions": [
-        "ms-vscode.cpptools",       // Extensión para C/C++
-        "ms-vscode.cmake-tools",      // Extensión para CMake
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
         "windriver.windsdksupport",
         
     ],

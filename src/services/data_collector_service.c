@@ -15,7 +15,6 @@ typedef struct {
     char *auth_token;
 } DataCollectorService;
 
-// Inicialización del servicio
 DataCollectorService* data_collector_service_new(const char *auth_token) {
     DataCollectorService *service = malloc(sizeof(DataCollectorService));
     service->curl = curl_easy_init();
@@ -23,14 +22,12 @@ DataCollectorService* data_collector_service_new(const char *auth_token) {
     return service;
 }
 
-// Liberación del servicio
 void data_collector_service_free(DataCollectorService *service) {
     if (service->curl) curl_easy_cleanup(service->curl);
     if (service->auth_token) free(service->auth_token);
     free(service);
 }
 
-// Creación del cuerpo XML para la solicitud
 char* create_request_body(time_t start, time_t end) {
     char start_str[30], end_str[30];
     strftime(start_str, sizeof(start_str), "%Y-%m-%dT%H:%M:%SZ", gmtime(&start));
@@ -96,7 +93,6 @@ size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp) {
     return realsize;
 }
 
-// Asumiendo que estas funciones están definidas en xmlLib.h
 xmlDocPtr parse_xml_response(const char* xml_string) {
     if (!xml_string) return NULL;
 
@@ -111,7 +107,6 @@ xmlDocPtr parse_xml_response(const char* xml_string) {
 }
 
 long calculate_timestamp_from_position(time_t start_time, int position) {
-    // Cada posición es 15 minutos antes que la siguiente
     return start_time - (15 * 60 * (position - 1));
 }
 
@@ -152,7 +147,6 @@ STATUS extract_data_points(xmlDocPtr doc, DataPoint* data_points, size_t *size) 
         return -1;
     }
 
-    // Recorre hasta el final del nodo Period para localizar el último nodo Point
     xmlNodePtr pointNode = NULL;
     int totalPoints = 0;
 
@@ -168,14 +162,12 @@ STATUS extract_data_points(xmlDocPtr doc, DataPoint* data_points, size_t *size) 
     }
 
     int count = 0;
-    DataPoint temp_points[MAX_POINTS]; // Limitar a 19 puntos
+    DataPoint temp_points[MAX_POINTS];
     memset(temp_points, 0, sizeof(temp_points));
 
-    // Obtener el tiempo actual redondeado al siguiente intervalo de 15 minutos
     time_t now = time(NULL);
     time_t start_time = round_up_to_nearest_15_minutes(now);
 
-    // Recorrer desde el último nodo Point hasta un máximo de 19 nodos hacia atrás
     for (xmlNodePtr node = pointNode; node && count < 19; node = node->prev) {
         if (node->type == XML_ELEMENT_NODE && xmlStrcmp(node->name, (const xmlChar *)"Point") == 0) {
             xmlNodePtr positionNode = NULL;
@@ -208,7 +200,6 @@ STATUS extract_data_points(xmlDocPtr doc, DataPoint* data_points, size_t *size) 
         }
     }
 
-    // Invertir el arreglo para tener los datos en orden cronológico
     for (int i = 0; i < count; i++) {
         data_points[i] = temp_points[count - i - 1];
     }
@@ -233,7 +224,6 @@ int parse_response(const char* response_text, DataPoint* data_points, size_t *si
     return result;
 }
 
-// Función principal para obtener datos de potencia
 int get_power_data(DataCollectorService *service, time_t start, time_t end, DataPoint *data_points, size_t *size) {
     CURLcode res;
     char error_buffer[CURL_ERROR_SIZE];

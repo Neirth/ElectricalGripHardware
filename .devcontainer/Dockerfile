@@ -52,13 +52,10 @@ ENV READELF=wr-readelf
 ENV SIZE=wr-size
 ENV STRIP=wr-strip
 
-# Agregar configuración de Rust del SDK (si es necesario)
 RUN echo 'source ${WIND_SDK_HOME}/vxsdk/sysroot/usr/rust/rustenv.linux' >> /root/.bashrc
 
-# Establecer la carpeta de trabajo en el contenedor
 WORKDIR /workspace
 
-# Crear y configurar un perfil específico de Conan para VxWorks en QEMU x86_64
 RUN mkdir -p /root/.conan2/profiles && \
     echo "[settings]" > /root/.conan2/profiles/vxworks && \
     echo "os=VxWorks" >> /root/.conan2/profiles/vxworks && \

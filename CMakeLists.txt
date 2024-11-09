@@ -5,7 +5,6 @@ project(ElectricalGripHardware LANGUAGES C CXX)
 
 find_package(libxml2)
 
-# Forzar la inclusión de rutas en flags del compilador
 foreach(DIR ${CMAKE_INCLUDE_PATH})
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${DIR}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${DIR}")
@@ -24,7 +23,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0 -ffast-math")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -ffast-math")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -ffast-math")
 
-# Añadir el ejecutable
 add_executable(ElectricalGripHardware 
     src/ElectricalGripHardware.c
     src/services/main_service.c
@@ -33,13 +31,11 @@ add_executable(ElectricalGripHardware
     src/utils/main_utils.c
 )
 
-# Después de añadir el ejecutable
 target_include_directories(ElectricalGripHardware PRIVATE
     ${__VXWORKS_INCLUDE_PATH__}
     
 )
 
-# Enlazar las bibliotecas necesarias correctamente
 target_link_libraries(ElectricalGripHardware PRIVATE
     LibXml2::LibXml2
     curl
@@ -49,9 +45,6 @@ target_link_libraries(ElectricalGripHardware PRIVATE
     m
 )
 
-# Configurar el sufijo del ejecutable para VxWorks
 if(CMAKE_SYSTEM_NAME STREQUAL "VxWorks")
     set(CMAKE_EXECUTABLE_SUFFIX ".vxe")
 endif()
-
-# Otras configuraciones...
