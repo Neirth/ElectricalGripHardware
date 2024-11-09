@@ -8,12 +8,12 @@
 #include <time.h>
 
 typedef struct {
-    time_t timestamp;
-    float quantity;
-} Point;
+    long timestamp;
+    double quantity;
+} DataPoint;
 
 typedef struct {
-    Point *points;
+    DataPoint *points;
     size_t size;
 } Period;
 

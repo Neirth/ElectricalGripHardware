@@ -12,6 +12,6 @@ typedef struct {
 
 PredictLoadService* predict_load_service_new(void);
 void predict_load_service_free(PredictLoadService *service);
-float predict_load(PredictLoadService *service, Point *input_data, size_t size);
+float predict_load(PredictLoadService *service, DataPoint *input_data, size_t size);
 
 #endif // PREDICT_LOAD_SERVICE_H

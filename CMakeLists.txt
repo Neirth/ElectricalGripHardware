@@ -3,11 +3,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(ElectricalGripHardware LANGUAGES C CXX)
 
-# Configurar C++ standard y VxWorks
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_COMPILER "wr-c++")
+find_package(libxml2)
 
 # Forzar la inclusión de rutas en flags del compilador
 foreach(DIR ${CMAKE_INCLUDE_PATH})
@@ -15,19 +11,18 @@ foreach(DIR ${CMAKE_INCLUDE_PATH})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${DIR}")
 endforeach()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lcurl -lm")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lcurl -lm")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I/opt/vxworks-sdk/vxsdk/sysroot/usr/h/public/")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/opt/vxworks-sdk/vxsdk/sysroot/usr/h/public/")
 
 foreach(DIR ${CMAKE_LIBRARY_PATH})
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${DIR}")
 endforeach()
 
-find_package(libxml2 REQUIRED)
-
-# Incluir el toolchain de Conan
-include(${CMAKE_TOOLCHAIN_FILE})
-set(CURL_LIBRARIES "/opt/vxworks-sdk/vxsdk/sysroot/usr/lib/common/libcurl.a")
-
+# Configuración de compilación para modo debug y release
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -O0 -ffast-math")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0 -ffast-math")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3 -ffast-math")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -ffast-math")
 
 # Añadir el ejecutable
 add_executable(ElectricalGripHardware 
@@ -38,10 +33,16 @@ add_executable(ElectricalGripHardware
     src/utils/main_utils.c
 )
 
+# Después de añadir el ejecutable
+target_include_directories(ElectricalGripHardware PRIVATE
+    ${__VXWORKS_INCLUDE_PATH__}
+    
+)
+
 # Enlazar las bibliotecas necesarias correctamente
 target_link_libraries(ElectricalGripHardware PRIVATE
-    LibXml2::LibXml2 
-    ${CURL_LIBRARIES}
+    LibXml2::LibXml2
+    curl
     ssl
     crypto
     z

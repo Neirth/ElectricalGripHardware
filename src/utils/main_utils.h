@@ -3,8 +3,8 @@
 
 #include <time.h>
 
-void generate_sin_components(time_t timestamp, float *day_sin, float *minute_sin);
-float normalize(float value, float min, float max);
-float denormalize(float value, float min, float max);
+void generate_sin_components(time_t timestamp, double *day_sin, double *minute_sin);
+double normalize(double value, double min, double max);
+double denormalize(double value, double min, double max);
 
 #endif // UTILS_H

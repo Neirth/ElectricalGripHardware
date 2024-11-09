@@ -12,6 +12,6 @@ typedef struct {
 
 DataCollectorService* data_collector_service_new(const char *auth_token);
 void data_collector_service_free(DataCollectorService *service);
-int get_power_data(DataCollectorService *service, time_t start, time_t end, Point **points, size_t *size);
+int get_power_data(DataCollectorService *service, time_t start, time_t end, DataPoint *points, size_t *size);
 
 #endif // DATA_COLLECTOR_SERVICE_H

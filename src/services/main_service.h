@@ -9,8 +9,8 @@ typedef struct {
     PredictLoadService *inference_service;
 } MainService;
 
-MainService* main_service_new(const char *auth_token, const char *model_path);
+MainService* main_service_new(const char *auth_token);
 void main_service_free(MainService *service);
-float predict_power_grid_load(MainService *service);
+double predict_power_grid_load(MainService *service);
 
 #endif // MAIN_SERVICE_H

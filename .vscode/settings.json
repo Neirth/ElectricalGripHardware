@@ -8,6 +8,12 @@
         "predict_load_service.h": "c",
         "math.h": "c",
         "main_utils.h": "c",
-        "grid_predictor.h": "c"
+        "grid_predictor.h": "c",
+        "limits.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "if.h": "c",
+        "cmath": "c"
     }
 }

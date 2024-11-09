@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ElectricalGripHardware.vxe_vxworks_intel",
+            "name": "ElectricalGripHardware.vxe",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/workspaces/ElectricalGripHardware/build/Release/ElectricalGripHardware.vxe",
+            "program": "/workspaces/ElectricalGripHardware/build/Debug/ElectricalGripHardware.vxe",
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "externalConsole": false,
@@ -32,10 +32,10 @@
             ],
             "postRemoteConnectCommands": [
                 {
-                    "text": "remote put '/workspaces/ElectricalGripHardware/build/Release/ElectricalGripHardware.vxe' /ram0/ElectricalGripHardware.vxe"
+                    "text": "remote put '/workspaces/ElectricalGripHardware/build/Debug/ElectricalGripHardware.vxe' /ram0/ElectricalGripHardware.vxe"
                 },
                 {
-                    "text": "set args priority=100 stacksize=16384"
+                    "text": "set args priority=100 stacksize=262144 predict_power_grid_load"
                 },
                 {
                     "text": "set remote exec-file /ram0/ElectricalGripHardware.vxe"
@@ -47,6 +47,6 @@
                 "engineLogging": true
             },
             "preLaunchTask": "${command:DevStudio.command.project.buildBeforeLaunch}"
-        }
+        },
     ]
 }

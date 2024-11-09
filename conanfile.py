@@ -49,10 +49,6 @@ class ElectricalGripHardwareConan(ConanFile):
         tc.variables["CMAKE_CXX_STANDARD"] = "20"
         tc.variables["CMAKE_CXX_STANDARD_REQUIRED"] = "ON"
         tc.variables["BUILD_TESTING"] = "OFF"
-        
-        # Definir macros de preprocesador
-        tc.preprocessor_definitions["_POSIX_C_SOURCE"] = "200809L"
-        tc.preprocessor_definitions["_XOPEN_SOURCE"] = "700"
 
         # Incluir Threads en CMake
         tc.variables["CMAKE_THREAD_LIBS_INIT"] = "-lpthread"

@@ -63,13 +63,21 @@ RUN mkdir -p /root/.conan2/profiles && \
     echo "[settings]" > /root/.conan2/profiles/vxworks && \
     echo "os=VxWorks" >> /root/.conan2/profiles/vxworks && \
     echo "os.version=7" >> /root/.conan2/profiles/vxworks && \
-
-    echo "arch=arm64" >> /root/.conan2/profiles/vxworks && \
+    echo "arch=armv8" >> /root/.conan2/profiles/vxworks && \
     echo "compiler=clang" >> /root/.conan2/profiles/vxworks && \
     echo "compiler.version=17" >> /root/.conan2/profiles/vxworks && \
     echo "compiler.libcxx=libstdc++11" >> /root/.conan2/profiles/vxworks && \
     echo "build_type=Release" >> /root/.conan2/profiles/vxworks && \
-    echo "toolchain=cmake" >> /root/.conan2/profiles/vxworks && \
+    echo "" >> /root/.conan2/profiles/vxworks && \
     echo "[options]" >> /root/.conan2/profiles/vxworks && \
     echo "shared=False" >> /root/.conan2/profiles/vxworks && \
-    echo "fPIC=True" >> /root/.conan2/profiles/vxworks
+    echo "fPIC=True" >> /root/.conan2/profiles/vxworks && \
+    echo "libxml2/*:iconv=False" >> /root/.conan2/profiles/vxworks && \
+    echo "libxml2/*:zlib=False" >> /root/.conan2/profiles/vxworks && \
+    echo "*:with_xnnpack=False" >> /root/.conan2/profiles/vxworks && \
+    echo "*:tools.cmake.cmaketoolchain:user_toolchain=['/opt/vxworks-sdk/vxsdk/sysroot/mk/rtp.toolchain.cmake']" >> /root/.conan2/profiles/vxworks && \
+    echo "*:tools.build:cxxflags=['--std=c++21','-DINCLUDE_VSB_CONFIG_FILE', '-I/opt/vxworks-sdk/vxsdk/sysroot/usr/h']" >> /root/.conan2/profiles/vxworks && \
+    echo "*:tools.build:ldflags=['-L/opt/vxworks-sdk/vxsdk/sysroot/usr/lib']" >> /root/.conan2/profiles/vxworks && \
+    echo "" >> /root/.conan2/profiles/vxworks && \
+    echo "[conf]" >> /root/.conan2/profiles/vxworks && \
+    echo "tools.cmake.cmaketoolchain:user_toolchain=['/opt/vxworks-sdk/vxsdk/sysroot/mk/rtp.toolchain.cmake']" >> /root/.conan2/profiles/vxworks
