@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
         const char *command = argv[1];
         if (strcmp(command, "predict_power_grid_load") == 0) {
             const char *auth_token = getenv("POWER_GRID_API_TOKEN");
-            if (!auth_token) auth_token = "5503bf77-2158-4b98-85fe-c82a06eee92b";
+            if (!auth_token) auth_token = "dummy_token";
 
             MainService *main_service = main_service_new(auth_token);
             printf("[*] Getting power data for the last 24 hours...\n");
